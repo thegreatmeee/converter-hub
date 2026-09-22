@@ -4,98 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OmniConvert - Free File & Image Converter</title>
-    <!-- Stable, Fast Loading Production Design Library -->
-    <link rel="stylesheet" href="https://jsdelivr.net">
-    <!-- html2pdf.js library for client-side PDF creation -->
+    <!-- Standalone PDF Engine Library -->
     <script src="https://cloudflare.com"></script>
     <style>
-        body { background-color: #f8f9fa; color: #333; }
-        .navbar { background-color: #4f46e5 !important; }
-        .card { border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .btn-primary { background-color: #4f46e5; border: none; }
-        .btn-primary:hover { background-color: #4338ca; }
-        .btn-success { background-color: #10b981; border: none; }
-        .btn-success:hover { background-color: #059669; }
-        .ad-box { background-color: #f1f5f9; border: 2px dashed #cbd5e1; border-radius: 12px; min-height: 100px; display: flex; align-items: center; justify-content: center; font-family: monospace; font-size: 12px; color: #64748b; text-align: center; }
+        /* Pure, standard CSS that requires no external design framework downloads */
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f3f4f6; color: #1f2937; margin: 0; padding: 0; }
+        .header { background-color: #4f46e5; color: white; padding: 20px; text-align: center; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .header h1 { margin: 0; font-size: 24px; }
+        .container { max-width: 600px; margin: 30px auto; padding: 0 15px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border: 1px solid #e5e7eb; margin-bottom: 25px; }
+        .card-title { font-size: 18px; font-weight: bold; margin-top: 0; margin-bottom: 5px; color: #111827; }
+        .card-desc { font-size: 12px; color: #6b7280; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 500; margin-bottom: 6px; color: #4b5563; }
+        .form-control { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; box-size: border-box; font-size: 14px; box-sizing: border-box; }
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 6px; color: white; font-weight: 6px; font-size: 14px; cursor: pointer; transition: background 0.2s; }
+        .btn-blue { background-color: #4f46e5; }
+        .btn-blue:hover { background-color: #4338ca; }
+        .btn-green { background-color: #10b981; }
+        .btn-green:hover { background-color: #059669; }
+        .ad-box { background-color: #f9fafb; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 20px; text-align: center; font-family: monospace; font-size: 12px; color: #64748b; }
+        footer { text-align: center; padding: 20px; font-size: 11px; color: #9ca3af; margin-top: 40px; }
     </style>
 </head>
-<body class="d-flex flex-column min-vh-screen">
+<body>
 
     <!-- Header Navigation -->
-    <nav class="navbar navbar-dark shadow-sm py-3 mb-4">
-        <div class="container max-w-4xl d-flex justify-content-between align-items-center">
-            <span class="navbar-brand mb-0 h1 fw-bold">🔄 OmniConvert Hub</span>
-            <span class="text-white-50 small d-none d-sm-inline">100% Free Browser-Based Conversions</span>
-        </div>
-    </nav>
+    <div class="header">
+        <h1>🔄 OmniConvert Hub</h1>
+        <div style="font-size: 12px; opacity: 0.8; margin-top: 5px;">100% Free Browser-Based Conversions</div>
+    </div>
 
-    <!-- Main Workspace -->
-    <main class="container style-container flex-grow-1" style="max-w: 800px; margin: 0 auto;">
-        <div class="row g-4 justify-content-center">
-            <div class="col-12 col-md-10">
-                
-                <!-- TOOL 1: IMAGE CONVERTER -->
-                <div class="card p-4 mb-4 bg-white">
-                    <div class="border-bottom pb-2 mb-3">
-                        <h2 class="h5 fw-bold text-dark mb-1">🖼️ Universal Image Converter</h2>
-                        <p class="text-muted small mb-0">Convert JPG, PNG, WebP, or BMP instantly inside your browser.</p>
-                    </div>
-                    
-                    <div class="row g-3 mb-3">
-                        <div class="col-12 col-sm-6">
-                            <label class="form-label small fw-medium text-secondary">Select Image:</label>
-                            <input type="file" id="image-input" accept="image/*" class="form-control form-control-sm">
-                        </div>
-                        <div class="col-12 col-sm-6">
-                            <label class="form-label small fw-medium text-secondary">Convert To:</label>
-                            <select id="image-format" class="form-select form-select-sm">
-                                <option value="image/jpeg">JPG / JPEG</option>
-                                <option value="image/png">PNG</option>
-                                <option value="image/webp">WebP</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button onclick="convertImage()" class="btn btn-primary w-full py-2 fw-semibold text-sm">
-                        Convert & Download Image
-                    </button>
-                </div>
-
-                <!-- TOOL 2: DOCUMENT TO PDF CONVERTER -->
-                <div class="card p-4 mb-4 bg-white">
-                    <div class="border-bottom pb-2 mb-3">
-                        <h2 class="h5 fw-bold text-dark mb-1">📄 Text / HTML Document to PDF</h2>
-                        <p class="text-muted small mb-0">Paste your document text or code to compile a clean, structured PDF file.</p>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label small fw-medium text-secondary">Document Title:</label>
-                        <input type="text" id="doc-title" placeholder="e.g., My Report" class="form-control form-control-sm mb-3">
-                        
-                        <label class="form-label small fw-medium text-secondary">Document Content:</label>
-                        <textarea id="doc-content" rows="6" class="form-control text-sm" placeholder="Type, paste text, or write basic HTML elements here..."></textarea>
-                    </div>
-
-                    <button onclick="convertDocToPDF()" class="btn btn-success w-full py-2 fw-semibold text-sm">
-                        Generate & Save PDF Document
-                    </button>
-                </div>
-
-                <!-- AD NETWORK ADVERTISEMENT PLACEMENT BOX -->
-                <div class="ad-box p-4 mb-4">
-                    [PASTE YOUR ADSTERRA BANNER OR POPUNDER SCRIPT TAG HERE TO EARN REVENUE]
-                </div>
-
+    <!-- Main Content Context -->
+    <div class="container">
+        
+        <!-- TOOL 1: IMAGE CONVERTER -->
+        <div class="card">
+            <div class="card-title">🖼️ Universal Image Converter</div>
+            <div class="card-desc">Convert JPG, PNG, WebP, or BMP instantly inside your browser.</div>
+            
+            <div class="form-group">
+                <label>Select Image File:</label>
+                <input type="file" id="image-input" accept="image/*" class="form-control">
             </div>
+            
+            <div class="form-group">
+                <label>Convert To Output Format:</label>
+                <select id="image-format" class="form-control">
+                    <option value="image/jpeg">JPG / JPEG</option>
+                    <option value="image/png">PNG</option>
+                    <option value="image/webp">WebP</option>
+                </select>
+            </div>
+
+            <button onclick="convertImage()" class="btn btn-blue">Convert & Download Image</button>
         </div>
-    </main>
+
+        <!-- TOOL 2: DOCUMENT TO PDF CONVERTER -->
+        <div class="card">
+            <div class="card-title">📄 Text Document to PDF</div>
+            <div class="card-desc">Paste your document text below to compile a clean, structured PDF file.</div>
+
+            <div class="form-group">
+                <label>Document Title:</label>
+                <input type="text" id="doc-title" placeholder="e.g., My Report" class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label>Document Content Material:</label>
+                <textarea id="doc-content" rows="6" class="form-control" placeholder="Type or paste your text documents content layout here..."></textarea>
+            </div>
+
+            <button onclick="convertDocToPDF()" class="btn btn-green">Generate & Save PDF Document</button>
+        </div>
+
+        <!-- AD NETWORK ADVERTISEMENT PLACEMENT BOX -->
+        <div class="ad-box">
+            [PASTE YOUR ADSTERRA BANNER OR POPUNDER SCRIPT TAG HERE TO EARN REVENUE]
+        </div>
+
+    </div>
 
     <!-- Structural Footer -->
-    <footer class="bg-dark text-white-50 text-center py-3 text-xs border-top mt-auto">
-        &copy; 2026 OmniConvert Hub. Local client-side sandbox execution environment.
+    <footer>
+        &copy; 2026 OmniConvert Hub. Local client-side browser secure sandbox execution env.
     </footer>
 
-    <!-- Browser JavaScript Engine Operations Logic -->
+    <!-- Conversion JavaScript Engine Logic Components -->
     <script>
         function convertImage() {
             const fileInput = document.getElementById('image-input');
@@ -158,163 +153,6 @@
                 jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
             };
 
-            html2pdf().set(options).from(element).save();
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OmniConvert - Free File & Image Converter</title>
-    <!-- Tailwind CSS for UI Styling -->
-<link rel="stylesheet" href="https://cloudflare.com">
-    <!-- html2pdf.js library for client-side PDF creation -->
-    <script src="https://cloudflare.com"></script>
-</head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
-
-    <!-- Header Navigation -->
-    <header class="bg-indigo-600 text-white shadow-md py-4 px-6 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold tracking-tight">🔄 OmniConvert Hub</h1>
-            <p class="text-sm hidden sm:block text-indigo-100">100% Free Browser-Based Conversions</p>
-        </div>
-    </header>
-
-    <!-- Main Workspace -->
-    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full space-y-8">
-        
-        <!-- TOOL 1: IMAGE CONVERTER -->
-        <section class="bg-white p-6 rounded-xl shadow-xs border border-slate-200 space-y-4">
-            <div class="border-b pb-2">
-                <h2 class="text-xl font-bold text-slate-900">🖼️ Universal Image Converter</h2>
-                <p class="text-xs text-slate-500">Convert JPG, PNG, WebP, or BMP instantly inside your browser.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-slate-600 mb-2">Select Image:</label>
-                    <input type="file" id="image-input" accept="image/*" class="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-600 mb-2">Convert To:</label>
-                    <select id="image-format" class="w-full p-2 border border-slate-300 rounded-md text-sm focus:ring-2 focus:ring-indigo-500">
-                        <option value="image/jpeg">JPG / JPEG</option>
-                        <option value="image/png">PNG</option>
-                        <option value="image/webp">WebP</option>
-                    </select>
-                </div>
-            </div>
-
-            <button onclick="convertImage()" class="w-full py-2.5 bg-indigo-600 text-white font-semibold rounded-lg text-sm hover:bg-indigo-700 transition">
-                Convert & Download Image
-            </button>
-        </section>
-
-        <!-- TOOL 2: DOCUMENT TO PDF CONVERTER -->
-        <section class="bg-white p-6 rounded-xl shadow-xs border border-slate-200 space-y-4">
-            <div class="border-b pb-2">
-                <h2 class="text-xl font-bold text-slate-900">📄 Text / HTML Document to PDF</h2>
-                <p class="text-xs text-slate-500">Paste your document text or code to compile a clean, structured PDF file.</p>
-            </div>
-
-            <div>
-                <label class="block text-sm font-medium text-slate-600 mb-2">Document Title:</label>
-                <input type="text" id="doc-title" placeholder="e.g., My Report" class="w-full p-2 border border-slate-300 rounded-md text-sm mb-3">
-                
-                <label class="block text-sm font-medium text-slate-600 mb-2">Document Content:</label>
-                <textarea id="doc-content" rows="6" class="w-full p-3 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Type, paste text, or write basic HTML elements here..."></textarea>
-            </div>
-
-            <button onclick="convertDocToPDF()" class="w-full py-2.5 bg-emerald-600 text-white font-semibold rounded-lg text-sm hover:bg-emerald-700 transition">
-                Generate & Save PDF Document
-            </button>
-        </section>
-
-        <!-- AD NETWORK ADVERTISEMENT PLACEMENT BOX -->
-        <div class="bg-slate-200 border border-dashed border-slate-300 rounded-xl p-4 text-center text-xs text-slate-500 font-mono">
-            [PASTE YOUR ADSTERRA BANNER OR POPUNDER SCRIPT TAG HERE TO EARN REVENUE]
-        </div>
-
-    </main>
-
-    <!-- Structural Footer -->
-    <footer class="bg-slate-900 text-slate-400 text-center py-4 text-xs border-t border-slate-800 mt-auto">
-        &copy; 2026 OmniConvert Hub. Local local client-side sandbox execution environment.
-    </footer>
-
-    <!-- Browser JavaScript Engine Operations Logic -->
-    <script>
-        // Feature 1: Processing Image Conversion via Canvas API Sandbox
-        function convertImage() {
-            const fileInput = document.getElementById('image-input');
-            const formatSelect = document.getElementById('image-format');
-            
-            if (!fileInput.files || fileInput.files.length === 0) {
-                alert("Please select an image file first.");
-                return;
-            }
-
-            const file = fileInput.files[0];
-            const reader = new FileReader();
-
-            reader.onload = function(event) {
-                const img = new Image();
-                img.onload = function() {
-                    // Create an invisible canvas element
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-                    
-                    // Extract data url and trigger automatic browser file download
-                    const selectedFormat = formatSelect.value;
-                    const extension = selectedFormat.split('/')[1];
-                    const dataUrl = canvas.toDataURL(selectedFormat, 0.9);
-                    
-                    const downloadLink = document.createElement('a');
-                    downloadLink.download = `converted-image.${extension}`;
-                    downloadLink.href = dataUrl;
-                    downloadLink.click();
-                };
-                img.src = event.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        // Feature 2: Processing Text to PDF via html2pdf compilation layout wrapper
-        function convertDocToPDF() {
-            const title = document.getElementById('doc-title').value || 'document';
-            const content = document.getElementById('doc-content').value;
-
-            if (!content.trim()) {
-                alert("Please type or paste some content first.");
-                return;
-            }
-
-            // Create temporary container styled nicely for the PDF engine output layout
-            const element = document.createElement('div');
-            element.style.padding = '40px';
-            element.style.fontFamily = 'Helvetica, Arial, sans-serif';
-            element.innerHTML = `
-                <h1 style="color: #333; font-size: 24px; margin-bottom: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px;">${title}</h1>
-                <div style="font-size: 14px; line-height: 1.6; color: #555; white-space: pre-wrap;">${content}</div>
-            `;
-
-            const options = {
-                margin:       10,
-                filename:     `${title.toLowerCase().replace(/\s+/g, '-')}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2 },
-                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            };
-
-            // Process script layout execution compiler to download natively
             html2pdf().set(options).from(element).save();
         }
     </script>
