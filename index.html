@@ -3,6 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniConvert Pro - Advanced Free File Converter</title>
+    <!-- Standalone Layout Framework & PDF Engine Library -->
+    <script src="https://cloudflare.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background-color: #f8fafc; color: #1e293b; margin: 0; padding: 0; }
+        .header { background-color: #ffffff; padding: 15px 30px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { margin: 0; font-size: 20px; color: #4f46e5; display: flex; align-items: center; gap: 8px; }
+        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; }
+        .main-title { font-size: 32px; font-weight: 800; margin-bottom: 10px; color: #0f172a; }
+        .main-subtitle { font-size: 15px; color: #64748b; margin-bottom: 30px; }
+        .converter-box { background: white; padding: 40px 30px; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; margin-bottom: 30px; position: relative; }
+        .drop-zone { border: 2px dashed #cbd5e1; border-radius: 12px; padding: 35px 20px; background-color: #f8fafc; cursor: pointer; transition: all 0.2s; margin-bottom: 20px; }
+        .drop-zone:hover { border-color: #4f46e5; background-color: #f5f3ff; }
+        .btn-choose { background-color: #4f46e5; color: white; padding: 12px 24px; border: none; border-radius: 8px; font-weight: 600; font-size: 15px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.2); }
+        .btn-choose:hover { background-color: #4338ca; }
+        .file-info-bar { background: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; margin-top: 15px; display: flex; align-items: center; justify-content: space-between; text-align: left; }
+        .format-selector-wrapper { display: flex; align-items: center; gap: 10px; }
+        .format-select { padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; background-color: white; font-size: 14px; font-weight: 600; color: #334155; outline: none; cursor: pointer; }
+        .btn-action { width: 100%; padding: 14px; border: none; border-radius: 8px; color: white; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 15px; display: none; }
+        .btn-convert { background-color: #4f46e5; }
+        .btn-convert:hover { background-color: #4338ca; }
+        .btn-download { background-color: #10b981; }
+        .btn-download:hover { background-color: #059669; }
+        .ad-box { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; text-align: center; font-family: monospace; font-size: 12px; color: #64748b; margin-top: 20px; }
+        .hidden { display: none !important; }
+        .features-grid { display: grid; grid-template-cols: repeat(3, 1fr); gap: 20px; margin-top: 5px; }
+        .feature-item { text-align: center; padding: 15px; }
+        .feature-item h3 { font-size: 15px; margin: 10px 0 5px 0; color: #0f172a; }
+        .feature-item p { font-size: 12px; color: #64748b; margin: 0; }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation Navbar -->
+    <div class="header">
+        <h1>📂 OmniConvert Pro</h1>
+        <div style="font-size: 13px; color: #64748b; font-weight: 500;">Convert • Compress • Tools</div>
+    </div>
+
+    <!-- Main Workspace Container -->
+    <div class="container">
+        <div class="main-title">File Converter</div>
+        <div class="main-subtitle">Easily convert files from one format to another, online.</div>
+
+        <!-- MAIN CONVERTER WIDGET COMPONENT -->
+        <div class="converter-box">
+            
+            <!-- Hidden Upload Anchor Input -->
+            <input type="file" id="universal-uploader" class="hidden" onchange="handleFileSelect(this)">
+            
+            <!-- Interaction Drop Target Area -->
+            <div class="drop-zone" onclick="document.getElementById('universal-uploader').click()">
+                <div style="font-size: 40px; margin-bottom: 10px;">📁</div>
+                <button class="btn-choose">Choose Files</button>
+                <div style="font-size: 12px; color: #64748b; margin-top: 10px;">Max file size 1GB. Browser secure processing cache.</div>
+            </div>
+
+            <!-- Dynamic Interactive Processing Information Shelf -->
+            <div id="file-shelf" class="hidden">
+                <div class="file-info-bar">
+                    <div style="font-size: 14px; font-weight: 500; color: #334155; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 250px;">
+                        📄 <span id="lbl-filename">filename.ext</span>
+                    </div>
+                    <div class="format-selector-wrapper">
+                        <span style="font-size: 13px; color: #64748b;">Output:</span>
+                        <select id="target-format" class="format-select">
+                            <!-- Populated automatically on file select -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Control Operation Action CTA Triggers -->
+                <button id="btn-submit" onclick="executeConversionProcess()" class="btn-action btn-convert">Convert Now ➔</button>
+                <a id="btn-save-link" class="hidden"><button id="btn-download" class="btn-action btn-download">Download File ↓</button></a>
+            </div>
+
+        </div>
+
+        <!-- ADSENSE / ADSTERRA AD SLOT HOLDER -->
+        <div class="ad-box">
+            [PASTE ADSTERRA BANNER CODE HERE TO ACCUMULATE EARNINGS]
+        </div>
+
+        <!-- Trust Indicators Features Footer Section -->
+        <div class="features-grid">
+            <div class="feature-item">
+                <div style="font-size: 24px;">📄</div>
+                <h3>Convert Any File</h3>
+                <p>Supports all structural formatting variations natively.</p>
+            </div>
+            <div class="feature-item">
+                <div style="font-size: 24px;">🌍</div>
+                <h3>Works Anywhere</h3>
+                <p>Runs perfectly on smartphones, computers, or tablets.</p>
+            </div>
+            <div class="feature-item">
+                <div style="font-size: 24px;">🔒</div>
+                <h3>Privacy Guaranteed</h3>
+                <h3>Files are never hosted or stored on external cloud nodes.</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Application Script Operations Layer Engine -->
+    <script>
+        let workingFileObject = null;
+
+        // Automatically configure options when file targets are parsed
+        function handleFileSelect(input) {
+            if (!input.files || input.files.length === 0) return;
+            workingFileObject = input.files[0];
+            
+            document.getElementById('lbl-filename').innerText = workingFileObject.name;
+            const select = document.getElementById('target-format');
+            select.innerHTML = ""; // Reset internal nodes
+
+            const ext = workingFileObject.name.split('.').pop().toLowerCase();
+
+            // Populate all conversion combinations matching premium platform arrays
+            if (['jpg', 'jpeg', 'png', 'webp', 'bmp'].includes(ext)) {
+                addOption(select, 'PNG', 'image/png');
+                addOption(select, 'JPG', 'image/jpeg');
+                addOption(select, 'WebP', 'image/webp');
+                addOption(select, 'PDF Document', 'application/pdf');
+            } else if (ext === 'pdf') {
+                addOption(select, 'Word (.DOCX)', 'docx');
+                addOption(select, 'HTML Webpage', 'html');
+                addOption(select, 'Plain Text (.TXT)', 'txt');
+                addOption(select, 'JPEG Image', 'image/jpeg');
+            } else if (['doc', 'docx', 'txt', 'rtf'].includes(ext)) {
+                addOption(select, 'PDF Document', 'pdf-compile');
+                addOption(select, 'Plain Text (.TXT)', 'txt');
+            } else {
+                // Fallback catch array options matches 
+                addOption(select, 'PDF Document', 'pdf-compile');
+                addOption(select, 'ZIP Archive', 'zip');
+            }
+
+            document.getElementById('file-shelf').classList.remove('hidden');
+            document.getElementById('btn-submit').style.display = 'block';
+            document.getElementById('btn-save-link').classList.add('hidden');
+        }
+
+        function addOption(element, label, val) {
+            const opt = document.createElement('option');
+            opt.text = label;
+            opt.value = val;
+            element.add(opt);
+        }
+
+        // Processing operation routing switcher engine
+        function executeConversionProcess() {
+            const format = document.getElementById('target-format').value;
+            const btnSubmit = document.getElementById('btn-submit');
+            
+            btnSubmit.innerText = "Processing File Convert... Please Wait...";
+            btnSubmit.disabled = true;
+
+            setTimeout(() => {
+                // Route 1: Local Image processing canvas engine outputs
+                if (format.startsWith('image/')) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = new Image();
+                        img.onload = function() {
+                            const canvas = document.createElement('canvas');
+                            canvas.width = img.width; canvas.height = img.height;
+                            canvas.getContext('2d').drawImage(img, 0, 0);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OmniConvert - Free File & Image Converter</title>
     <!-- Standalone PDF Engine Library -->
     <script src="https://cloudflare.com"></script>
